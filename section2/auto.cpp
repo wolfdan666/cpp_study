@@ -90,14 +90,14 @@ void case5()
     using int_ref = decltype(x)&;
 }
 
-void case6()
+/* void case6()
 {
     int x = 0;
 
     decltype(auto)     x1 = (x);
     decltype(auto)     x2 = &x;
     decltype(auto)     x3 = x1;
-}
+} */
 
 auto get_a_set()
 {
@@ -147,7 +147,7 @@ int main()
     case3();
     case4();
     case5();
-    case6();
+    // case6();
     case7();
 
     cout << "auto/decltype demo" << endl;

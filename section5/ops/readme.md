@@ -29,7 +29,7 @@ compilation terminated.
 [wolfdan@ecs-t6-medium-2-linux-20191014150446 cpp_study]$ find . -name "*msgpack*"
 ./section4/msgpack.cpp
 ```
-2020年11月23日17:14:41 
+2020年11月23日17:14:41
 然后就知道应该是整个大文件编译
 
 3. 整体编译发现json.hpp需要到另一个文件去找
@@ -61,3 +61,47 @@ make: *** [all] Error 2
 
 ```
 
+5. section2,3持续报错，取消编译
+2020年11月25日00:41:01 现在的目标是要运行section5，调研这个项目可否作为毕设，所以就把section2报错的地方注释掉先
+
+2020年11月25日00:45:32 又报错，继续注释
+```
+/home/wolfdan/code/cpp_study/section2/const.cpp: In function ‘constexpr int fib(int)’:
+/home/wolfdan/code/cpp_study/section2/const.cpp:79:1: error: body of constexpr function ‘constexpr int fib(int)’ not a return-statement
+ }
+ ^
+/home/wolfdan/code/cpp_study/section2/const.cpp: In function ‘int main(’:
+/home/wolfdan/code/cpp_study/section2/const.cpp:89:21: error: ‘constexpr int fib(int)’ called in a constant expression
+     int fib5 = fib(5);
+                     ^
+make[2]: *** [section2/CMakeFiles/section2.dir/const.cpp.o] Error 1
+make[1]: *** [section2/CMakeFiles/section2.dir/all] Error 2
+make: *** [all] Error 2
+```
+
+
+2020年11月25日00:54:02，**section2，section3接连报错，所以直接把总CMakeList.txt中除了section4,5的地方全注释掉**
+
+6. 又丢失头文件
+```bash
+/home/wolfdan/code/cpp_study/section4/cpr.cpp:13:21: fatal error: cpr/cpr.h: No such file or directory
+ #include <cpr/cpr.h>
+                     ^
+compilation terminated.
+make[2]: *** [section4/CMakeFiles/section4.dir/cpr.cpp.o] Error 1
+make[1]: *** [section4/CMakeFiles/section4.dir/all] Error 2
+make: *** [all] Error 2
+[wolfdan@ecs-t6-medium-2-linux-20191014150446 build]$ cd ..
+[wolfdan@ecs-t6-medium-2-linux-20191014150446 cpp_study]$ find . -name "*cpr*"
+./section4/cpr.cpp
+./build/section4/CMakeFiles/cpr.dir
+```
+
+找到`.c`文件，然后看到最上面的GitHub链接，就可以找到对应的地方去进行安装头文件
+
+```bash
+/cpr/cprtypes.h:4:23: fatal error: curl/curl.h: No such file or directory
+ #include <curl/curl.h>
+```
+
+2020年11月25日01:20:42 累了，睡觉
